@@ -6,881 +6,720 @@
   <meta name="description" content="School Esport Day งานแข่งขันเกม Esports กิจกรรมเกม และนิทรรศการเทคโนโลยี" />
   <title>School Esport Day</title>
   <style>
-    :root {
-      --bg: #050912;
-      --bg-soft: #09111f;
-      --card: rgba(10, 22, 40, 0.82);
-      --line: rgba(82, 222, 255, 0.18);
-      --cyan: #46e8ff;
-      --blue: #1d7cff;
-      --text: #f4fbff;
-      --muted: #9cb4c8;
-      --shadow: 0 0 30px rgba(70, 232, 255, 0.16);
+    :root{
+      --bg:#02060d;
+      --bg2:#05101c;
+      --panel:rgba(6,18,31,.78);
+      --panel2:rgba(8,24,42,.9);
+      --cyan:#39efff;
+      --blue:#1878ff;
+      --cyan2:#9cf7ff;
+      --text:#f5fbff;
+      --muted:#93adc0;
+      --line:rgba(57,239,255,.18);
+      --glow:0 0 22px rgba(57,239,255,.35);
+      --glow2:0 0 50px rgba(24,120,255,.25);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at 20% 10%, rgba(29,124,255,.17), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(70,232,255,.10), transparent 28%),
-        linear-gradient(180deg, #040811 0%, #07101d 55%, #040811 100%);
-      line-height: 1.6;
-      min-height: 100vh;
+        radial-gradient(circle at 15% 12%,rgba(24,120,255,.18),transparent 26%),
+        radial-gradient(circle at 85% 18%,rgba(57,239,255,.10),transparent 25%),
+        linear-gradient(180deg,#02060d,#05101b 48%,#02060d);
+      min-height:100vh;
+      overflow-x:hidden;
+      line-height:1.6;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(70,232,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(70,232,255,.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-      z-index: -1;
+    body::before{
+      content:"";
+      position:fixed;inset:0;z-index:-3;pointer-events:none;
+      background:
+        linear-gradient(rgba(57,239,255,.028) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(57,239,255,.028) 1px,transparent 1px);
+      background-size:42px 42px;
+      transform:perspective(700px) rotateX(58deg) scale(1.45);
+      transform-origin:center bottom;
+      opacity:.8;
+      animation:gridMove 12s linear infinite;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    body::after{
+      content:"";
+      position:fixed;inset:0;z-index:9999;pointer-events:none;
+      background:repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.015) 0,
+        rgba(255,255,255,.015) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      mix-blend-mode:screen;
+      opacity:.45;
     }
 
-    .container {
-      width: min(1120px, 92%);
-      margin: 0 auto;
+    @keyframes gridMove{
+      from{background-position:0 0,0 0}
+      to{background-position:0 84px,84px 0}
     }
 
-    .section {
-      padding: 84px 0;
+    @keyframes pulse{
+      0%,100%{filter:drop-shadow(0 0 8px rgba(57,239,255,.25))}
+      50%{filter:drop-shadow(0 0 22px rgba(57,239,255,.75))}
     }
 
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.7rem);
-      margin-bottom: 12px;
-      letter-spacing: -0.03em;
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-12px)}
     }
 
-    .section-title span {
-      color: var(--cyan);
-      text-shadow: 0 0 18px rgba(70,232,255,.45);
+    @keyframes drift{
+      from{transform:translate3d(0,0,0)}
+      to{transform:translate3d(40px,-70px,0)}
     }
 
-    .section-subtitle {
-      color: var(--muted);
-      max-width: 720px;
-      margin-bottom: 36px;
+    @keyframes shimmer{
+      0%{background-position:-200% center}
+      100%{background-position:200% center}
     }
+
+    @keyframes ring{
+      0%{transform:scale(.8);opacity:.7}
+      100%{transform:scale(1.5);opacity:0}
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1160px,92%);margin:auto}
+    .section{padding:88px 0;position:relative}
+    .section-title{
+      font-size:clamp(1.9rem,4vw,3rem);
+      letter-spacing:-.04em;
+      margin-bottom:10px;
+    }
+    .section-title span{
+      color:var(--cyan);
+      text-shadow:var(--glow);
+    }
+    .section-subtitle{
+      max-width:760px;
+      color:var(--muted);
+      margin-bottom:36px;
+    }
+
+    /* Ambient particles */
+    .particles{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+    .particles i{
+      position:absolute;
+      width:3px;height:3px;border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 10px var(--cyan);
+      opacity:.55;
+      animation:drift 9s linear infinite;
+    }
+    .particles i:nth-child(1){left:8%;top:82%;animation-duration:10s}
+    .particles i:nth-child(2){left:22%;top:70%;animation-duration:14s}
+    .particles i:nth-child(3){left:44%;top:88%;animation-duration:8s}
+    .particles i:nth-child(4){left:66%;top:76%;animation-duration:12s}
+    .particles i:nth-child(5){left:81%;top:90%;animation-duration:11s}
+    .particles i:nth-child(6){left:92%;top:64%;animation-duration:15s}
 
     /* Navbar */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(16px);
-      background: rgba(4, 8, 17, 0.78);
-      border-bottom: 1px solid var(--line);
+    .navbar{
+      position:sticky;top:0;z-index:100;
+      backdrop-filter:blur(18px);
+      background:rgba(2,6,13,.76);
+      border-bottom:1px solid var(--line);
     }
-
-    .nav-inner {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+    .nav-inner{
+      min-height:72px;
+      display:flex;align-items:center;justify-content:space-between;gap:24px;
     }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: .04em;
-      white-space: nowrap;
+    .logo{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.04em}
+    .logo-mark{
+      width:40px;height:40px;display:grid;place-items:center;
+      border:1px solid var(--cyan);border-radius:10px;color:var(--cyan);
+      box-shadow:var(--glow),inset 0 0 18px rgba(57,239,255,.08);
+      position:relative;
     }
-
-    .logo-mark {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--cyan);
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      color: var(--cyan);
-      box-shadow: 0 0 20px rgba(70,232,255,.2);
+    .logo-mark::after{
+      content:"";position:absolute;inset:-7px;border:1px solid rgba(57,239,255,.16);
+      border-radius:14px;
     }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: #c9dbe8;
-      font-size: .95rem;
+    .nav-links{display:flex;gap:22px;color:#c9dbe8;font-size:.94rem}
+    .nav-links a{position:relative}
+    .nav-links a::after{
+      content:"";position:absolute;left:0;right:100%;bottom:-7px;height:2px;
+      background:var(--cyan);transition:.2s;
     }
-
-    .nav-links a:hover {
-      color: var(--cyan);
-    }
-
-    .nav-cta {
-      padding: 10px 16px;
-      border: 1px solid var(--cyan);
-      border-radius: 10px;
-      color: var(--cyan);
-      font-weight: 700;
+    .nav-links a:hover{color:var(--cyan)}
+    .nav-links a:hover::after{right:0}
+    .nav-cta{
+      padding:10px 16px;border:1px solid var(--cyan);border-radius:10px;
+      color:var(--cyan);font-weight:800;box-shadow:inset 0 0 20px rgba(57,239,255,.04);
     }
 
     /* Hero */
-    .hero {
-      min-height: calc(100vh - 72px);
-      display: grid;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
+    .hero{
+      min-height:calc(100vh - 72px);
+      display:grid;align-items:center;
+      position:relative;overflow:hidden;
+    }
+    .hero::before{
+      content:"";position:absolute;left:-5%;right:-5%;bottom:-55px;height:190px;
+      background:linear-gradient(180deg,transparent,rgba(24,120,255,.08));
+      transform:skewY(-4deg);border-top:1px solid rgba(57,239,255,.11);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center;
+      position:relative;z-index:2;
+    }
+    .eyebrow{
+      color:var(--cyan);font-size:.8rem;letter-spacing:.2em;font-weight:900;
+      text-transform:uppercase;margin-bottom:18px;
+    }
+    h1{
+      font-size:clamp(3.5rem,8.5vw,7.2rem);
+      line-height:.88;letter-spacing:-.065em;text-transform:uppercase;
+      margin-bottom:24px;
+    }
+    h1 .glow{
+      color:transparent;
+      -webkit-text-stroke:1px var(--cyan);
+      text-shadow:0 0 22px rgba(57,239,255,.45);
+      background:linear-gradient(90deg,#e9feff,#39efff,#1878ff,#39efff,#e9feff);
+      background-size:220% auto;
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:shimmer 5s linear infinite;
+    }
+    .hero p{color:#bdd0de;font-size:1.05rem;max-width:660px;margin-bottom:28px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+    .btn{
+      min-height:50px;padding:0 22px;border-radius:12px;
+      display:inline-flex;align-items:center;justify-content:center;
+      font-weight:900;border:1px solid transparent;transition:.22s;
+    }
+    .btn-primary{
+      color:#02121d;background:linear-gradient(90deg,var(--blue),var(--cyan));
+      box-shadow:0 0 30px rgba(57,239,255,.2);
+    }
+    .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 0 40px rgba(57,239,255,.45)}
+    .btn-secondary{border-color:var(--line);background:rgba(255,255,255,.02)}
+    .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan)}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+    .meta-chip{
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(57,239,255,.12);
+      background:rgba(57,239,255,.05);color:#bdf5fb;font-size:.9rem;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 420px;
-      height: 420px;
-      border: 1px solid rgba(70,232,255,.15);
-      border-radius: 50%;
-      right: -120px;
-      top: 90px;
-      box-shadow:
-        0 0 0 60px rgba(70,232,255,.02),
-        0 0 0 120px rgba(29,124,255,.015);
+    /* Hero visual */
+    .arena-wrap{
+      position:relative;min-height:520px;display:grid;place-items:center;
+    }
+    .arena-glow{
+      position:absolute;width:420px;height:420px;border-radius:50%;
+      background:radial-gradient(circle,rgba(57,239,255,.18),rgba(24,120,255,.08) 34%,transparent 70%);
+      filter:blur(5px);
+    }
+    .ring,.ring2,.ring3{
+      position:absolute;border-radius:50%;border:1px solid rgba(57,239,255,.23);
+    }
+    .ring{width:390px;height:390px}
+    .ring2{width:470px;height:470px;border-style:dashed;animation:spin 18s linear infinite}
+    .ring3{width:300px;height:300px;box-shadow:0 0 40px rgba(57,239,255,.09) inset}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .visual-card{
+      width:min(460px,94%);
+      padding:18px;
+      border-radius:26px;
+      border:1px solid rgba(57,239,255,.25);
+      background:linear-gradient(180deg,rgba(8,24,42,.93),rgba(2,8,16,.91));
+      box-shadow:0 0 65px rgba(24,120,255,.2),inset 0 0 40px rgba(57,239,255,.025);
+      position:relative;
+      animation:float 5s ease-in-out infinite;
+      overflow:hidden;
+    }
+    .visual-card::before{
+      content:"";position:absolute;inset:-120% -40%;
+      background:linear-gradient(115deg,transparent 43%,rgba(57,239,255,.10) 48%,transparent 53%);
+      transform:rotate(8deg);animation:sweep 6s linear infinite;
+    }
+    @keyframes sweep{to{transform:translateX(40%) rotate(8deg)}}
+    .visual-card svg{width:100%;display:block;position:relative;z-index:2}
+    .visual-label{
+      position:absolute;left:24px;bottom:22px;z-index:3;
+      font-size:.8rem;letter-spacing:.17em;color:var(--cyan);font-weight:900;
+      text-shadow:var(--glow);
+    }
+    .signal{
+      position:absolute;right:26px;top:24px;width:10px;height:10px;border-radius:50%;
+      background:var(--cyan);box-shadow:0 0 16px var(--cyan);z-index:3;
+    }
+    .signal::after{
+      content:"";position:absolute;inset:-8px;border:1px solid rgba(57,239,255,.6);
+      border-radius:50%;animation:ring 1.8s ease-out infinite;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 60px;
-      align-items: center;
+    /* ticker */
+    .ticker{
+      border-top:1px solid rgba(57,239,255,.09);
+      border-bottom:1px solid rgba(57,239,255,.09);
+      overflow:hidden;background:rgba(5,16,28,.72);
     }
-
-    .eyebrow {
-      color: var(--cyan);
-      text-transform: uppercase;
-      font-size: .82rem;
-      font-weight: 800;
-      letter-spacing: .2em;
-      margin-bottom: 18px;
+    .ticker-track{
+      display:flex;gap:42px;width:max-content;padding:12px 0;
+      animation:marquee 18s linear infinite;
+      color:#b9f8ff;font-size:.83rem;font-weight:900;letter-spacing:.12em;
     }
+    .ticker-track span::before{content:"◆";color:var(--cyan);margin-right:12px}
+    @keyframes marquee{to{transform:translateX(-50%)}}
 
-    h1 {
-      font-size: clamp(3.2rem, 8vw, 6.6rem);
-      line-height: .92;
-      letter-spacing: -0.06em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+    /* cards */
+    .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{
+      position:relative;padding:24px;border-radius:18px;
+      background:linear-gradient(180deg,rgba(8,24,42,.88),rgba(4,12,22,.78));
+      border:1px solid var(--line);overflow:hidden;
+      transition:transform .25s,border-color .25s,box-shadow .25s;
     }
-
-    h1 .glow {
-      color: var(--cyan);
-      text-shadow: 0 0 25px rgba(70,232,255,.42);
+    .card::before{
+      content:"";position:absolute;left:-40%;bottom:-50%;width:160px;height:160px;
+      border-radius:50%;background:radial-gradient(circle,rgba(57,239,255,.12),transparent 65%);
     }
-
-    .hero p {
-      color: #bdd0de;
-      font-size: 1.05rem;
-      max-width: 680px;
-      margin-bottom: 30px;
+    .card:hover{
+      transform:translateY(-8px) rotateX(2deg);
+      border-color:rgba(57,239,255,.48);
+      box-shadow:0 18px 50px rgba(0,0,0,.26),0 0 28px rgba(57,239,255,.10);
     }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 32px;
+    .card-icon{
+      width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,rgba(24,120,255,.20),rgba(57,239,255,.08));
+      border:1px solid rgba(57,239,255,.18);margin-bottom:18px;
     }
+    .card-icon svg{width:28px;height:28px;stroke:var(--cyan);fill:none;stroke-width:1.8}
+    .card-number{font-size:.72rem;letter-spacing:.16em;color:var(--cyan);font-weight:900;margin-bottom:8px}
+    .card h3{font-size:1.16rem;margin-bottom:8px}
+    .card p{color:var(--muted);font-size:.94rem}
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      font-weight: 800;
-      transition: .2s ease;
+    /* Info */
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .info-panel{
+      padding:28px;border-radius:20px;border:1px solid var(--line);
+      background:rgba(6,18,31,.72);position:relative;overflow:hidden;
     }
-
-    .btn-primary {
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-      color: #03101d;
-      box-shadow: 0 0 28px rgba(70,232,255,.23);
+    .info-panel::after{
+      content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;
+      border:1px solid rgba(57,239,255,.10);transform:rotate(45deg);
     }
+    .info-panel h3{margin-bottom:12px}
+    .info-panel p,.info-panel li{color:var(--muted)}
+    .info-panel ul{padding-left:20px;display:grid;gap:7px}
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 36px rgba(70,232,255,.4);
+    /* games */
+    .games{
+      border-top:1px solid rgba(57,239,255,.06);
+      border-bottom:1px solid rgba(57,239,255,.06);
+      background:linear-gradient(180deg,rgba(24,120,255,.035),rgba(57,239,255,.015));
     }
-
-    .btn-secondary {
-      border-color: var(--line);
-      background: rgba(255,255,255,.02);
-      color: #d6e9f5;
+    .game-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .game-card{
+      min-height:310px;position:relative;overflow:hidden;border-radius:22px;
+      border:1px solid var(--line);background:#07111d;
+      transition:.25s;
     }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .meta-chip {
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(70,232,255,.06);
-      border: 1px solid rgba(70,232,255,.12);
-      color: #bdefff;
-      font-size: .9rem;
-    }
-
-    .hero-panel {
-      position: relative;
-      padding: 28px;
-      border: 1px solid rgba(70,232,255,.2);
-      background: linear-gradient(180deg, rgba(9,20,35,.92), rgba(5,12,23,.85));
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-panel::before,
-    .hero-panel::after {
-      content: "";
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border-color: var(--cyan);
-    }
-
-    .hero-panel::before {
-      top: -1px;
-      left: -1px;
-      border-top: 2px solid;
-      border-left: 2px solid;
-      border-radius: 24px 0 0 0;
-    }
-
-    .hero-panel::after {
-      right: -1px;
-      bottom: -1px;
-      border-right: 2px solid;
-      border-bottom: 2px solid;
-      border-radius: 0 0 24px 0;
-    }
-
-    .panel-kicker {
-      color: var(--muted);
-      font-size: .85rem;
-      margin-bottom: 8px;
-    }
-
-    .date-big {
-      font-size: 2.3rem;
-      font-weight: 900;
-      color: var(--cyan);
-      margin-bottom: 6px;
-    }
-
-    .hero-panel hr {
-      border: 0;
-      height: 1px;
-      background: var(--line);
-      margin: 22px 0;
-    }
-
-    .quick-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .quick-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      color: #d9eaf4;
-    }
-
-    .quick-item span:last-child {
-      color: var(--cyan);
-      text-align: right;
-    }
-
-    /* Cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      padding: 24px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
-      transition: .2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(70,232,255,.45);
-      box-shadow: var(--shadow);
-    }
-
-    .card-number {
-      font-size: .78rem;
-      letter-spacing: .15em;
-      color: var(--cyan);
-      margin-bottom: 16px;
-      font-weight: 800;
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-      font-size: 1.15rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: .94rem;
-    }
-
-    /* Games */
-    .games {
-      background: linear-gradient(180deg, rgba(29,124,255,.04), rgba(70,232,255,.015));
-      border-top: 1px solid rgba(70,232,255,.05);
-      border-bottom: 1px solid rgba(70,232,255,.05);
-    }
-
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .game-card {
-      min-height: 180px;
-      padding: 24px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      border: 1px solid var(--line);
+    .game-card:hover{transform:translateY(-6px);border-color:rgba(57,239,255,.45);box-shadow:var(--glow2)}
+    .game-art{
+      height:170px;position:relative;overflow:hidden;
       background:
-        linear-gradient(140deg, rgba(29,124,255,.10), rgba(70,232,255,.02)),
-        #08111f;
+        radial-gradient(circle at 70% 30%,rgba(57,239,255,.25),transparent 20%),
+        linear-gradient(135deg,#0b2440,#05101d 56%,#071a2b);
+      border-bottom:1px solid var(--line);
     }
-
-    .game-card::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 1px solid rgba(70,232,255,.13);
-      right: -30px;
-      bottom: -30px;
-      box-shadow: 0 0 40px rgba(70,232,255,.07);
+    .game-art::before{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.06),transparent 70%);
+      transform:translateX(-100%);transition:.45s;
     }
-
-    .game-label {
-      display: inline-block;
-      font-size: .75rem;
-      color: var(--cyan);
-      border: 1px solid rgba(70,232,255,.18);
-      background: rgba(70,232,255,.05);
-      border-radius: 999px;
-      padding: 6px 9px;
-      margin-bottom: 24px;
+    .game-card:hover .game-art::before{transform:translateX(100%)}
+    .game-art svg{position:absolute;inset:0;width:100%;height:100%}
+    .game-body{padding:20px}
+    .game-label{
+      font-size:.72rem;letter-spacing:.12em;color:var(--cyan);
+      border:1px solid rgba(57,239,255,.18);padding:5px 9px;border-radius:999px;
+      display:inline-block;margin-bottom:12px;
     }
+    .game-card h3{font-size:1.55rem;margin-bottom:6px}
+    .game-card p{color:var(--muted);font-size:.92rem}
 
-    .game-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
+    /* schedule */
+    .schedule{display:grid;gap:12px}
+    .schedule-row{
+      display:grid;grid-template-columns:140px 1fr auto;gap:20px;align-items:center;
+      padding:18px 20px;border:1px solid var(--line);border-radius:14px;
+      background:linear-gradient(90deg,rgba(24,120,255,.05),rgba(255,255,255,.015));
+      transition:.2s;
     }
-
-    .game-card p {
-      color: var(--muted);
-      max-width: 85%;
-    }
-
-    /* Schedule */
-    .schedule {
-      display: grid;
-      gap: 12px;
-    }
-
-    .schedule-row {
-      display: grid;
-      grid-template-columns: 140px 1fr auto;
-      gap: 20px;
-      align-items: center;
-      padding: 18px 20px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.018);
-    }
-
-    .time {
-      color: var(--cyan);
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .schedule-row small {
-      color: var(--muted);
-    }
-
-    .tag {
-      color: #bdefff;
-      background: rgba(70,232,255,.07);
-      border: 1px solid rgba(70,232,255,.13);
-      padding: 6px 9px;
-      border-radius: 999px;
-      font-size: .78rem;
-      white-space: nowrap;
-    }
-
-    /* Event Details */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-    }
-
-    .info-panel {
-      padding: 28px;
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      background: rgba(8,17,31,.82);
-    }
-
-    .info-panel h3 {
-      margin-bottom: 14px;
-    }
-
-    .info-panel p,
-    .info-panel li {
-      color: var(--muted);
-    }
-
-    .info-panel ul {
-      padding-left: 20px;
-      display: grid;
-      gap: 8px;
+    .schedule-row:hover{transform:translateX(5px);border-color:rgba(57,239,255,.35)}
+    .time{color:var(--cyan);font-weight:900;font-variant-numeric:tabular-nums}
+    .schedule-row small{color:var(--muted)}
+    .tag{
+      color:#c4f9ff;background:rgba(57,239,255,.06);
+      border:1px solid rgba(57,239,255,.13);padding:6px 9px;border-radius:999px;
+      font-size:.76rem;white-space:nowrap;
     }
 
     /* CTA */
-    .cta {
-      padding: 70px 0;
-    }
-
-    .cta-box {
-      text-align: center;
-      padding: 54px 24px;
-      border-radius: 24px;
-      border: 1px solid rgba(70,232,255,.25);
+    .cta{padding:72px 0}
+    .cta-box{
+      position:relative;overflow:hidden;text-align:center;padding:58px 24px;border-radius:26px;
+      border:1px solid rgba(57,239,255,.25);
       background:
-        radial-gradient(circle at 50% 0%, rgba(70,232,255,.12), transparent 45%),
-        #08111f;
-      box-shadow: var(--shadow);
+        radial-gradient(circle at 50% 0%,rgba(57,239,255,.14),transparent 48%),
+        linear-gradient(180deg,#081a2c,#06101b);
+      box-shadow:var(--glow2);
     }
-
-    .cta-box h2 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin-bottom: 10px;
+    .cta-box::before,.cta-box::after{
+      content:"";position:absolute;width:170px;height:170px;border:1px solid rgba(57,239,255,.08);
+      border-radius:50%;
     }
-
-    .cta-box p {
-      color: var(--muted);
-      margin: 0 auto 24px;
-      max-width: 660px;
-    }
+    .cta-box::before{left:-70px;top:-60px}
+    .cta-box::after{right:-70px;bottom:-60px}
+    .cta-box h2{font-size:clamp(2rem,5vw,3.25rem);margin-bottom:10px}
+    .cta-box p{max-width:680px;margin:0 auto 24px;color:var(--muted)}
 
     /* Contact */
-    .contact-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(8,17,31,.82);
+    .contact-card{
+      display:flex;align-items:center;justify-content:space-between;gap:24px;
+      padding:28px;border:1px solid var(--line);border-radius:20px;
+      background:rgba(6,18,31,.78);
+    }
+    .contact-card p{color:var(--muted);margin-top:6px}
+    .facebook{
+      color:var(--cyan);font-weight:800;border:1px solid rgba(57,239,255,.24);
+      padding:11px 16px;border-radius:10px;white-space:nowrap;
     }
 
-    .contact-card p {
-      color: var(--muted);
-      margin-top: 6px;
+    footer{
+      border-top:1px solid var(--line);padding:28px 0;color:#7892a6;font-size:.9rem
+    }
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hero{min-height:auto;padding:72px 0}
+      .hero-grid,.info-grid{grid-template-columns:1fr}
+      .arena-wrap{min-height:460px}
+      .card-grid{grid-template-columns:repeat(2,1fr)}
+      .game-grid{grid-template-columns:1fr}
     }
 
-    .facebook {
-      white-space: nowrap;
-      color: var(--cyan);
-      border: 1px solid rgba(70,232,255,.24);
-      padding: 11px 16px;
-      border-radius: 10px;
-      font-weight: 700;
+    @media(max-width:620px){
+      .section{padding:64px 0}
+      .nav-cta{display:none}
+      h1{font-size:clamp(3.2rem,18vw,5.2rem)}
+      .arena-wrap{min-height:390px}
+      .ring{width:300px;height:300px}
+      .ring2{width:350px;height:350px}
+      .ring3{width:230px;height:230px}
+      .card-grid{grid-template-columns:1fr}
+      .schedule-row{grid-template-columns:1fr;gap:4px}
+      .tag{justify-self:start;margin-top:6px}
+      .contact-card{align-items:flex-start;flex-direction:column}
+      .hero-meta{gap:7px}
     }
 
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 28px 0;
-      color: #7892a6;
-      font-size: .9rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 900px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 70px 0;
-      }
-
-      .hero-grid,
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .game-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .section {
-        padding: 64px 0;
-      }
-
-      .nav-cta {
-        display: none;
-      }
-
-      h1 {
-        font-size: clamp(3rem, 17vw, 5rem);
-      }
-
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .schedule-row {
-        grid-template-columns: 1fr;
-        gap: 4px;
-      }
-
-      .tag {
-        justify-self: start;
-        margin-top: 6px;
-      }
-
-      .contact-card {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .hero-panel {
-        padding: 22px;
-      }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="container nav-inner">
-      <a class="logo" href="#home">
-        <span class="logo-mark">SE</span>
-        <span>School Esport Day</span>
-      </a>
+<div class="particles" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
 
-      <div class="nav-links">
-        <a href="#about">รายละเอียดงาน</a>
-        <a href="#activities">กิจกรรม</a>
-        <a href="#games">เกมแข่งขัน</a>
-        <a href="#schedule">กำหนดการ</a>
-        <a href="#contact">ติดต่อ</a>
-      </div>
-
-      <a class="nav-cta" href="#activities">ดูรายละเอียดกิจกรรม</a>
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="#home"><span class="logo-mark">SE</span><span>School Esport Day</span></a>
+    <div class="nav-links">
+      <a href="#about">รายละเอียดงาน</a>
+      <a href="#activities">กิจกรรม</a>
+      <a href="#games">เกมแข่งขัน</a>
+      <a href="#schedule">กำหนดการ</a>
+      <a href="#contact">ติดต่อ</a>
     </div>
-  </nav>
+    <a class="nav-cta" href="#activities">ดูรายละเอียดกิจกรรม</a>
+  </div>
+</nav>
 
-  <header class="hero" id="home">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Competition • Gaming • Technology</div>
-        <h1>School<br><span class="glow">Esport</span><br>Day</h1>
-        <p>
-          วันแห่งการแข่งขันเกม Esports ความสนุก และเทคโนโลยี
-          พบกับการแข่งขันชิงแชมป์ โซนทดลองเล่นเกม ผลงานชมรม
-          และนิทรรศการสุดล้ำในบรรยากาศ Cyber Neon
-        </p>
+<header class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Competition • Gaming • Technology</div>
+      <h1>School<br><span class="glow">Esport</span><br>Day</h1>
+      <p>
+        วันแห่งการแข่งขันเกม Esports ความสนุก และเทคโนโลยี
+        พบกับการแข่งขันชิงแชมป์ โซนทดลองเล่นเกม ผลงานชมรม และนิทรรศการสุดล้ำ
+        ในบรรยากาศ Cyber Neon
+      </p>
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
-          <a class="btn btn-secondary" href="#schedule">ดูกำหนดการ</a>
-        </div>
-
-        <div class="hero-meta">
-          <span class="meta-chip">20 กันยายน 2026</span>
-          <span class="meta-chip">09:00 - 16:00 น.</span>
-          <span class="meta-chip">หอประชุมโรงเรียน</span>
-        </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
+        <a class="btn btn-secondary" href="#schedule">ดูกำหนดการ</a>
       </div>
 
-      <aside class="hero-panel">
-        <div class="panel-kicker">NEXT MATCH DAY</div>
-        <div class="date-big">20.09.2026</div>
-        <p>เปิดพื้นที่ให้ทุกคนที่รักเกมและ Esports ได้มาพบกันในวันเดียว</p>
-        <hr>
-        <div class="quick-list">
-          <div class="quick-item">
-            <span>เวลาเปิดงาน</span>
-            <span>09:00 น.</span>
-          </div>
-          <div class="quick-item">
-            <span>สถานที่</span>
-            <span>หอประชุมโรงเรียน</span>
-          </div>
-          <div class="quick-item">
-            <span>รูปแบบงาน</span>
-            <span>Esports + Gaming</span>
-          </div>
-        </div>
-      </aside>
+      <div class="hero-meta">
+        <span class="meta-chip">20 กันยายน 2026</span>
+        <span class="meta-chip">09:00 - 16:00 น.</span>
+        <span class="meta-chip">หอประชุมโรงเรียน</span>
+      </div>
     </div>
-  </header>
 
-  <main>
-    <section class="section" id="about">
-      <div class="container">
-        <h2 class="section-title">เกี่ยวกับ <span>School Esport Day</span></h2>
-        <p class="section-subtitle">
-          งานสำหรับนักเรียน ครู ผู้ปกครอง และทุกคนที่สนใจ Esports
-          รวมการแข่งขัน กิจกรรมเกม ผลงานชมรม และเทคโนโลยีไว้ในพื้นที่เดียว
-        </p>
+    <div class="arena-wrap" aria-label="ภาพกราฟิกธีม Esports">
+      <div class="arena-glow"></div>
+      <div class="ring"></div>
+      <div class="ring2"></div>
+      <div class="ring3"></div>
 
-        <div class="info-grid">
-          <div class="info-panel">
-            <h3>เป้าหมายของงาน</h3>
-            <p>
-              สร้างพื้นที่ให้นักเรียนได้แสดงทักษะการแข่งขันเกม
-              เรียนรู้การทำงานเป็นทีม แลกเปลี่ยนประสบการณ์
-              และเปิดมุมมองใหม่เกี่ยวกับ Esports และเทคโนโลยี
-            </p>
-          </div>
+      <div class="visual-card">
+        <span class="signal"></span>
+        <svg viewBox="0 0 520 390" role="img" aria-label="ภาพกราฟิกจอยเกมและสนาม Esports">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#1878ff"/>
+              <stop offset="1" stop-color="#39efff"/>
+            </linearGradient>
+            <radialGradient id="g2">
+              <stop offset="0" stop-color="#39efff" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#39efff" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="4" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
 
-          <div class="info-panel">
-            <h3>เหมาะสำหรับ</h3>
-            <ul>
-              <li>นักเรียนในโรงเรียนและต่างโรงเรียน</li>
-              <li>ครูและบุคลากรทางการศึกษา</li>
-              <li>ผู้ปกครอง</li>
-              <li>ผู้ที่สนใจเกม Esports และเทคโนโลยี</li>
-            </ul>
-          </div>
+          <circle cx="260" cy="180" r="150" fill="url(#g2)" opacity=".35"/>
+          <path d="M70 310 L170 80 L350 80 L450 310 Z" fill="#06121f" stroke="#39efff" stroke-opacity=".25"/>
+          <path d="M105 280 L190 110 L330 110 L415 280 Z" fill="none" stroke="#1878ff" stroke-opacity=".28"/>
+          <path d="M140 250 L208 138 L312 138 L380 250 Z" fill="none" stroke="#39efff" stroke-opacity=".18"/>
+
+          <g filter="url(#glow)">
+            <path d="M162 208 C178 151,222 140,260 158 C298 140,342 151,358 208 L374 262
+                     C380 286,351 296,335 278 L302 240 H218 L185 278 C169 296,140 286,146 262 Z"
+                  fill="#071727" stroke="url(#g1)" stroke-width="5"/>
+            <circle cx="309" cy="204" r="11" fill="#39efff"/>
+            <circle cx="337" cy="224" r="11" fill="#1878ff"/>
+            <path d="M193 211 h42 M214 190 v42" stroke="#9cf7ff" stroke-width="8" stroke-linecap="round"/>
+            <rect x="248" y="190" width="24" height="9" rx="4.5" fill="#9cf7ff"/>
+          </g>
+
+          <path d="M110 320 H410" stroke="#39efff" stroke-opacity=".28"/>
+          <path d="M145 335 H375" stroke="#1878ff" stroke-opacity=".23"/>
+          <circle cx="260" cy="320" r="5" fill="#39efff"/>
+          <circle cx="230" cy="320" r="3" fill="#1878ff"/>
+          <circle cx="290" cy="320" r="3" fill="#1878ff"/>
+        </svg>
+        <div class="visual-label">READY FOR BATTLE // 2026</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>ESPORT TOURNAMENT</span><span>GAME ZONE</span><span>TECH EXHIBITION</span><span>CLUB SHOWCASE</span>
+    <span>ESPORT TOURNAMENT</span><span>GAME ZONE</span><span>TECH EXHIBITION</span><span>CLUB SHOWCASE</span>
+  </div>
+</div>
+
+<main>
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">เกี่ยวกับ <span>School Esport Day</span></h2>
+      <p class="section-subtitle">
+        งานสำหรับนักเรียน ครู ผู้ปกครอง และทุกคนที่สนใจ Esports
+        รวมการแข่งขัน กิจกรรมเกม ผลงานชมรม และเทคโนโลยีไว้ในพื้นที่เดียว
+      </p>
+      <div class="info-grid">
+        <div class="info-panel">
+          <h3>เป้าหมายของงาน</h3>
+          <p>
+            สร้างพื้นที่ให้นักเรียนได้แสดงทักษะการแข่งขันเกม เรียนรู้การทำงานเป็นทีม
+            แลกเปลี่ยนประสบการณ์ และเปิดมุมมองใหม่เกี่ยวกับ Esports และเทคโนโลยี
+          </p>
+        </div>
+        <div class="info-panel">
+          <h3>เหมาะสำหรับ</h3>
+          <ul>
+            <li>นักเรียนในโรงเรียนและต่างโรงเรียน</li>
+            <li>ครูและบุคลากรทางการศึกษา</li>
+            <li>ผู้ปกครอง</li>
+            <li>ผู้ที่สนใจเกม Esports และเทคโนโลยี</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section" id="activities">
-      <div class="container">
-        <h2 class="section-title">กิจกรรม <span>เด่น</span></h2>
-        <p class="section-subtitle">
-          ไม่ได้มีแค่แข่งเกมแล้วกลับบ้าน เพราะมนุษย์ต้องการกิจกรรมมากกว่านั้นอย่างน่าประหลาด
-          งานนี้จึงรวมหลายโซนไว้ให้เดินเล่นและลองของใหม่ด้วย
-        </p>
+  <section class="section" id="activities">
+    <div class="container">
+      <h2 class="section-title">กิจกรรม <span>เด่น</span></h2>
+      <p class="section-subtitle">
+        รวมการแข่งขัน โซนเล่นเกม ผลงานชมรม และนิทรรศการเทคโนโลยีไว้ให้ครบในงานเดียว
+      </p>
 
-        <div class="card-grid">
-          <article class="card">
-            <div class="card-number">ACTIVITY 01</div>
-            <h3>แข่งขันเกมชิงแชมป์</h3>
-            <p>เวทีหลักสำหรับทีมที่พร้อมวัดฝีมือ แข่งขันเพื่อคะแนน เกียรติยศ และความมันแบบเต็มพิกัด</p>
-          </article>
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M8 8h8l3 3v5a3 3 0 0 1-5 2l-2-2-2 2a3 3 0 0 1-5-2v-5z"/><path d="M8 12h4M10 10v4M16 12h.01"/></svg>
+          </div>
+          <div class="card-number">ACTIVITY 01</div>
+          <h3>แข่งขันเกมชิงแชมป์</h3>
+          <p>เวทีหลักสำหรับทีมที่พร้อมวัดฝีมือ แข่งขันเพื่อคะแนน เกียรติยศ และความมันแบบเต็มพิกัด</p>
+        </article>
 
-          <article class="card">
-            <div class="card-number">ACTIVITY 02</div>
-            <h3>โซนทดลองเล่นเกม</h3>
-            <p>พื้นที่สำหรับลองเกม เล่นกับเพื่อน และสนุกกับกิจกรรมแบบไม่ต้องลงแข่งขันจริง</p>
-          </article>
+        <article class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <div class="card-number">ACTIVITY 02</div>
+          <h3>โซนทดลองเล่นเกม</h3>
+          <p>พื้นที่สำหรับลองเกม เล่นกับเพื่อน และสนุกกับกิจกรรมแบบไม่ต้องลงแข่งขันจริง</p>
+        </article>
 
-          <article class="card">
-            <div class="card-number">ACTIVITY 03</div>
-            <h3>โชว์ผลงานชมรมเกม</h3>
-            <p>พบกับผลงาน โปรเจกต์ และกิจกรรมจากชมรมเกมของนักเรียนภายในโรงเรียน</p>
-          </article>
+        <article class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19h16V7H4z"/><path d="M8 7V4h8v3M8 12h8M8 15h5"/></svg>
+          </div>
+          <div class="card-number">ACTIVITY 03</div>
+          <h3>โชว์ผลงานชมรมเกม</h3>
+          <p>พบกับผลงาน โปรเจกต์ และกิจกรรมจากชมรมเกมของนักเรียนภายในโรงเรียน</p>
+        </article>
 
-          <article class="card">
-            <div class="card-number">ACTIVITY 04</div>
-            <h3>นิทรรศการเทคโนโลยี</h3>
-            <p>สำรวจอุปกรณ์ นวัตกรรม และเทคโนโลยีที่เกี่ยวข้องกับเกม Esports และโลกดิจิทัล</p>
-          </article>
-        </div>
+        <article class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 3h6v4H9zM5 10h14v10H5z"/><path d="M8 13h2v2H8zM14 13h2v2h-2zM10 18h4"/></svg>
+          </div>
+          <div class="card-number">ACTIVITY 04</div>
+          <h3>นิทรรศการเทคโนโลยี</h3>
+          <p>สำรวจอุปกรณ์ นวัตกรรม และเทคโนโลยีที่เกี่ยวข้องกับเกม Esports และโลกดิจิทัล</p>
+        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section games" id="games">
-      <div class="container">
-        <h2 class="section-title">เกมที่ใช้ <span>แข่งขัน</span></h2>
-        <p class="section-subtitle">
-          รายชื่อด้านล่างเป็นตัวอย่าง สามารถแก้ชื่อเกมให้ตรงกับการแข่งขันจริงได้ในไฟล์ HTML
-        </p>
+  <section class="section games" id="games">
+    <div class="container">
+      <h2 class="section-title">เกมที่ใช้ <span>แข่งขัน</span></h2>
+      <p class="section-subtitle">รายชื่อด้านล่างเป็นตัวอย่าง สามารถแก้ชื่อเกมให้ตรงกับการแข่งขันจริงได้ภายหลัง</p>
 
-        <div class="game-grid">
-          <article class="game-card">
+      <div class="game-grid">
+        <article class="game-card">
+          <div class="game-art">
+            <svg viewBox="0 0 400 170" aria-hidden="true">
+              <circle cx="305" cy="65" r="72" fill="#39efff" fill-opacity=".08"/>
+              <path d="M30 140 L100 62 L155 105 L220 28 L370 140" fill="none" stroke="#39efff" stroke-width="2" stroke-opacity=".6"/>
+              <path d="M80 140 L145 95 L190 125 L265 55 L345 140" fill="none" stroke="#1878ff" stroke-width="5" stroke-opacity=".45"/>
+              <circle cx="220" cy="28" r="5" fill="#39efff"/>
+            </svg>
+          </div>
+          <div class="game-body">
             <span class="game-label">TEAM BATTLE</span>
             <h3>ROV</h3>
             <p>การแข่งขันแบบทีม วางแผน ประสานงาน และควบคุมพื้นที่เพื่อคว้าชัยชนะ</p>
-          </article>
+          </div>
+        </article>
 
-          <article class="game-card">
+        <article class="game-card">
+          <div class="game-art">
+            <svg viewBox="0 0 400 170" aria-hidden="true">
+              <path d="M60 125 L145 35 L190 95 L265 20 L340 125" fill="none" stroke="#39efff" stroke-width="2" stroke-opacity=".55"/>
+              <path d="M105 140 L165 75 L220 120 L305 55" fill="none" stroke="#1878ff" stroke-width="6" stroke-opacity=".36"/>
+              <circle cx="265" cy="20" r="7" fill="#39efff"/>
+              <circle cx="165" cy="75" r="4" fill="#1878ff"/>
+            </svg>
+          </div>
+          <div class="game-body">
             <span class="game-label">TACTICAL FPS</span>
             <h3>VALORANT</h3>
             <p>การแข่งขันเชิงกลยุทธ์ที่เน้นความแม่นยำ การสื่อสาร และการเล่นเป็นทีม</p>
-          </article>
+          </div>
+        </article>
 
-          <article class="game-card">
+        <article class="game-card">
+          <div class="game-art">
+            <svg viewBox="0 0 400 170" aria-hidden="true">
+              <ellipse cx="200" cy="88" rx="135" ry="55" fill="none" stroke="#39efff" stroke-opacity=".25"/>
+              <ellipse cx="200" cy="88" rx="95" ry="38" fill="none" stroke="#1878ff" stroke-opacity=".38"/>
+              <circle cx="200" cy="88" r="26" fill="none" stroke="#39efff" stroke-width="2"/>
+              <path d="M200 62 v52 M174 88 h52" stroke="#39efff" stroke-opacity=".65"/>
+            </svg>
+          </div>
+          <div class="game-body">
             <span class="game-label">SPORT</span>
             <h3>eFootball</h3>
             <p>การแข่งขันฟุตบอลดิจิทัลสำหรับผู้เล่นที่ชอบการวางแผนและการควบคุมเกมแบบตัวต่อตัว</p>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
-    </section>
-
-    <section class="section" id="schedule">
-      <div class="container">
-        <h2 class="section-title">กำหนดการ <span>แข่งขัน</span></h2>
-        <p class="section-subtitle">
-          ตัวอย่างตารางเวลาสำหรับงานวันที่ 20 กันยายน 2026 เวลา 09:00 - 16:00 น.
-        </p>
-
-        <div class="schedule">
-          <div class="schedule-row">
-            <div class="time">09:00 - 09:30</div>
-            <div>
-              <strong>ลงทะเบียนและเปิดงาน</strong><br>
-              <small>ต้อนรับผู้เข้าร่วมและชี้แจงกติกา</small>
-            </div>
-            <span class="tag">OPENING</span>
-          </div>
-
-          <div class="schedule-row">
-            <div class="time">09:30 - 11:30</div>
-            <div>
-              <strong>รอบคัดเลือกการแข่งขัน</strong><br>
-              <small>เริ่มการแข่งขันเกมหลักตามสายการแข่งขัน</small>
-            </div>
-            <span class="tag">QUALIFIER</span>
-          </div>
-
-          <div class="schedule-row">
-            <div class="time">11:30 - 12:30</div>
-            <div>
-              <strong>พักกลางวัน + โซนกิจกรรม</strong><br>
-              <small>ทดลองเล่นเกม เยี่ยมชมบูธ และผลงานชมรม</small>
-            </div>
-            <span class="tag">BREAK</span>
-          </div>
-
-          <div class="schedule-row">
-            <div class="time">12:30 - 14:30</div>
-            <div>
-              <strong>รอบรองชนะเลิศ</strong><br>
-              <small>ทีมที่ผ่านเข้ารอบแข่งขันเพื่อชิงสิทธิ์เข้าสู่รอบสุดท้าย</small>
-            </div>
-            <span class="tag">SEMIFINAL</span>
-          </div>
-
-          <div class="schedule-row">
-            <div class="time">14:30 - 15:30</div>
-            <div>
-              <strong>รอบชิงชนะเลิศ</strong><br>
-              <small>การแข่งขันแมตช์สำคัญของวัน</small>
-            </div>
-            <span class="tag">FINAL</span>
-          </div>
-
-          <div class="schedule-row">
-            <div class="time">15:30 - 16:00</div>
-            <div>
-              <strong>ประกาศผลและปิดงาน</strong><br>
-              <small>สรุปผลการแข่งขัน มอบรางวัล และถ่ายภาพร่วมกัน</small>
-            </div>
-            <span class="tag">AWARDS</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="container">
-        <div class="cta-box">
-          <h2>พร้อมเข้าสู่สนามแล้วหรือยัง?</h2>
-          <p>
-            พบกับการแข่งขัน กิจกรรมเกม และเทคโนโลยีในบรรยากาศ Dark Neon
-            วันที่ 20 กันยายน 2026 ณ หอประชุมโรงเรียน
-          </p>
-          <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="container">
-        <h2 class="section-title">ติดต่อ <span>เรา</span></h2>
-        <p class="section-subtitle">
-          ติดตามประกาศ ตารางการแข่งขัน และข้อมูลเพิ่มเติมผ่าน Facebook ของโรงเรียนหรือชมรม
-        </p>
-
-        <div class="contact-card">
-          <div>
-            <h3>Facebook โรงเรียน / ชมรม Esports</h3>
-            <p>เปลี่ยนข้อความและลิงก์ด้านขวาเป็น Facebook จริงของโรงเรียนได้ภายหลัง</p>
-          </div>
-          <a class="facebook" href="#" aria-label="Facebook โรงเรียนหรือชมรม">Facebook</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <span>© 2026 School Esport Day</span>
-      <span>Designed for students • HTML + CSS • GitHub Pages Ready</span>
     </div>
-  </footer>
+  </section>
+
+  <section class="section" id="schedule">
+    <div class="container">
+      <h2 class="section-title">กำหนดการ <span>แข่งขัน</span></h2>
+      <p class="section-subtitle">20 กันยายน 2026 เวลา 09:00 - 16:00 น. ณ หอประชุมโรงเรียน</p>
+
+      <div class="schedule">
+        <div class="schedule-row"><div class="time">09:00 - 09:30</div><div><strong>ลงทะเบียนและเปิดงาน</strong><br><small>ต้อนรับผู้เข้าร่วมและชี้แจงกติกา</small></div><span class="tag">OPENING</span></div>
+        <div class="schedule-row"><div class="time">09:30 - 11:30</div><div><strong>รอบคัดเลือกการแข่งขัน</strong><br><small>เริ่มการแข่งขันเกมหลักตามสายการแข่งขัน</small></div><span class="tag">QUALIFIER</span></div>
+        <div class="schedule-row"><div class="time">11:30 - 12:30</div><div><strong>พักกลางวัน + โซนกิจกรรม</strong><br><small>ทดลองเล่นเกม เยี่ยมชมบูธ และผลงานชมรม</small></div><span class="tag">BREAK</span></div>
+        <div class="schedule-row"><div class="time">12:30 - 14:30</div><div><strong>รอบรองชนะเลิศ</strong><br><small>ทีมที่ผ่านเข้ารอบแข่งขันเพื่อชิงสิทธิ์เข้าสู่รอบสุดท้าย</small></div><span class="tag">SEMIFINAL</span></div>
+        <div class="schedule-row"><div class="time">14:30 - 15:30</div><div><strong>รอบชิงชนะเลิศ</strong><br><small>การแข่งขันแมตช์สำคัญของวัน</small></div><span class="tag">FINAL</span></div>
+        <div class="schedule-row"><div class="time">15:30 - 16:00</div><div><strong>ประกาศผลและปิดงาน</strong><br><small>สรุปผลการแข่งขัน มอบรางวัล และถ่ายภาพร่วมกัน</small></div><span class="tag">AWARDS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box">
+        <h2>READY TO ENTER THE ARENA?</h2>
+        <p>พบกับการแข่งขัน กิจกรรมเกม และเทคโนโลยีในบรรยากาศ Dark Neon วันที่ 20 กันยายน 2026</p>
+        <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title">ติดต่อ <span>เรา</span></h2>
+      <p class="section-subtitle">ติดตามประกาศ ตารางการแข่งขัน และข้อมูลเพิ่มเติมผ่าน Facebook ของโรงเรียนหรือชมรม</p>
+      <div class="contact-card">
+        <div>
+          <h3>Facebook โรงเรียน / ชมรม Esports</h3>
+          <p>เปลี่ยนข้อความและลิงก์ด้านขวาเป็น Facebook จริงของโรงเรียนได้ภายหลัง</p>
+        </div>
+        <a class="facebook" href="#">Facebook</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 School Esport Day</span>
+    <span>Dark Neon • Responsive • GitHub Pages Ready</span>
+  </div>
+</footer>
 
 </body>
 </html>
