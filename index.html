@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="School Esport Day งานแข่งขันเกม Esports กิจกรรมเกม และนิทรรศการเทคโนโลยี" />
+  <title>School Esport Day</title>
+  <style>
+    :root {
+      --bg: #050912;
+      --bg-soft: #09111f;
+      --card: rgba(10, 22, 40, 0.82);
+      --line: rgba(82, 222, 255, 0.18);
+      --cyan: #46e8ff;
+      --blue: #1d7cff;
+      --text: #f4fbff;
+      --muted: #9cb4c8;
+      --shadow: 0 0 30px rgba(70, 232, 255, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(29,124,255,.17), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(70,232,255,.10), transparent 28%),
+        linear-gradient(180deg, #040811 0%, #07101d 55%, #040811 100%);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(70,232,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(70,232,255,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 84px 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+
+    .section-title span {
+      color: var(--cyan);
+      text-shadow: 0 0 18px rgba(70,232,255,.45);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 36px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(4, 8, 17, 0.78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(70,232,255,.2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: #c9dbe8;
+      font-size: .95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-cta {
+      padding: 10px 16px;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(70,232,255,.15);
+      border-radius: 50%;
+      right: -120px;
+      top: 90px;
+      box-shadow:
+        0 0 0 60px rgba(70,232,255,.02),
+        0 0 0 120px rgba(29,124,255,.015);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(3.2rem, 8vw, 6.6rem);
+      line-height: .92;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    h1 .glow {
+      color: var(--cyan);
+      text-shadow: 0 0 25px rgba(70,232,255,.42);
+    }
+
+    .hero p {
+      color: #bdd0de;
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      color: #03101d;
+      box-shadow: 0 0 28px rgba(70,232,255,.23);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(70,232,255,.4);
+    }
+
+    .btn-secondary {
+      border-color: var(--line);
+      background: rgba(255,255,255,.02);
+      color: #d6e9f5;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-chip {
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(70,232,255,.06);
+      border: 1px solid rgba(70,232,255,.12);
+      color: #bdefff;
+      font-size: .9rem;
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 28px;
+      border: 1px solid rgba(70,232,255,.2);
+      background: linear-gradient(180deg, rgba(9,20,35,.92), rgba(5,12,23,.85));
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel::before,
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-color: var(--cyan);
+    }
+
+    .hero-panel::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid;
+      border-left: 2px solid;
+      border-radius: 24px 0 0 0;
+    }
+
+    .hero-panel::after {
+      right: -1px;
+      bottom: -1px;
+      border-right: 2px solid;
+      border-bottom: 2px solid;
+      border-radius: 0 0 24px 0;
+    }
+
+    .panel-kicker {
+      color: var(--muted);
+      font-size: .85rem;
+      margin-bottom: 8px;
+    }
+
+    .date-big {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: var(--cyan);
+      margin-bottom: 6px;
+    }
+
+    .hero-panel hr {
+      border: 0;
+      height: 1px;
+      background: var(--line);
+      margin: 22px 0;
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .quick-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: #d9eaf4;
+    }
+
+    .quick-item span:last-child {
+      color: var(--cyan);
+      text-align: right;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.02);
+      transition: .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(70,232,255,.45);
+      box-shadow: var(--shadow);
+    }
+
+    .card-number {
+      font-size: .78rem;
+      letter-spacing: .15em;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    /* Games */
+    .games {
+      background: linear-gradient(180deg, rgba(29,124,255,.04), rgba(70,232,255,.015));
+      border-top: 1px solid rgba(70,232,255,.05);
+      border-bottom: 1px solid rgba(70,232,255,.05);
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .game-card {
+      min-height: 180px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(140deg, rgba(29,124,255,.10), rgba(70,232,255,.02)),
+        #08111f;
+    }
+
+    .game-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid rgba(70,232,255,.13);
+      right: -30px;
+      bottom: -30px;
+      box-shadow: 0 0 40px rgba(70,232,255,.07);
+    }
+
+    .game-label {
+      display: inline-block;
+      font-size: .75rem;
+      color: var(--cyan);
+      border: 1px solid rgba(70,232,255,.18);
+      background: rgba(70,232,255,.05);
+      border-radius: 999px;
+      padding: 6px 9px;
+      margin-bottom: 24px;
+    }
+
+    .game-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .game-card p {
+      color: var(--muted);
+      max-width: 85%;
+    }
+
+    /* Schedule */
+    .schedule {
+      display: grid;
+      gap: 12px;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.018);
+    }
+
+    .time {
+      color: var(--cyan);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .schedule-row small {
+      color: var(--muted);
+    }
+
+    .tag {
+      color: #bdefff;
+      background: rgba(70,232,255,.07);
+      border: 1px solid rgba(70,232,255,.13);
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    /* Event Details */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .info-panel {
+      padding: 28px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(8,17,31,.82);
+    }
+
+    .info-panel h3 {
+      margin-bottom: 14px;
+    }
+
+    .info-panel p,
+    .info-panel li {
+      color: var(--muted);
+    }
+
+    .info-panel ul {
+      padding-left: 20px;
+      display: grid;
+      gap: 8px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 70px 0;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 54px 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(70,232,255,.25);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(70,232,255,.12), transparent 45%),
+        #08111f;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 10px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      margin: 0 auto 24px;
+      max-width: 660px;
+    }
+
+    /* Contact */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(8,17,31,.82);
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .facebook {
+      white-space: nowrap;
+      color: var(--cyan);
+      border: 1px solid rgba(70,232,255,.24);
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      color: #7892a6;
+      font-size: .9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 70px 0;
+      }
+
+      .hero-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .game-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .section {
+        padding: 64px 0;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 17vw, 5rem);
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .schedule-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .tag {
+        justify-self: start;
+        margin-top: 6px;
+      }
+
+      .contact-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-panel {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a class="logo" href="#home">
+        <span class="logo-mark">SE</span>
+        <span>School Esport Day</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">รายละเอียดงาน</a>
+        <a href="#activities">กิจกรรม</a>
+        <a href="#games">เกมแข่งขัน</a>
+        <a href="#schedule">กำหนดการ</a>
+        <a href="#contact">ติดต่อ</a>
+      </div>
+
+      <a class="nav-cta" href="#activities">ดูรายละเอียดกิจกรรม</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Competition • Gaming • Technology</div>
+        <h1>School<br><span class="glow">Esport</span><br>Day</h1>
+        <p>
+          วันแห่งการแข่งขันเกม Esports ความสนุก และเทคโนโลยี
+          พบกับการแข่งขันชิงแชมป์ โซนทดลองเล่นเกม ผลงานชมรม
+          และนิทรรศการสุดล้ำในบรรยากาศ Cyber Neon
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
+          <a class="btn btn-secondary" href="#schedule">ดูกำหนดการ</a>
+        </div>
+
+        <div class="hero-meta">
+          <span class="meta-chip">20 กันยายน 2026</span>
+          <span class="meta-chip">09:00 - 16:00 น.</span>
+          <span class="meta-chip">หอประชุมโรงเรียน</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <div class="panel-kicker">NEXT MATCH DAY</div>
+        <div class="date-big">20.09.2026</div>
+        <p>เปิดพื้นที่ให้ทุกคนที่รักเกมและ Esports ได้มาพบกันในวันเดียว</p>
+        <hr>
+        <div class="quick-list">
+          <div class="quick-item">
+            <span>เวลาเปิดงาน</span>
+            <span>09:00 น.</span>
+          </div>
+          <div class="quick-item">
+            <span>สถานที่</span>
+            <span>หอประชุมโรงเรียน</span>
+          </div>
+          <div class="quick-item">
+            <span>รูปแบบงาน</span>
+            <span>Esports + Gaming</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section-title">เกี่ยวกับ <span>School Esport Day</span></h2>
+        <p class="section-subtitle">
+          งานสำหรับนักเรียน ครู ผู้ปกครอง และทุกคนที่สนใจ Esports
+          รวมการแข่งขัน กิจกรรมเกม ผลงานชมรม และเทคโนโลยีไว้ในพื้นที่เดียว
+        </p>
+
+        <div class="info-grid">
+          <div class="info-panel">
+            <h3>เป้าหมายของงาน</h3>
+            <p>
+              สร้างพื้นที่ให้นักเรียนได้แสดงทักษะการแข่งขันเกม
+              เรียนรู้การทำงานเป็นทีม แลกเปลี่ยนประสบการณ์
+              และเปิดมุมมองใหม่เกี่ยวกับ Esports และเทคโนโลยี
+            </p>
+          </div>
+
+          <div class="info-panel">
+            <h3>เหมาะสำหรับ</h3>
+            <ul>
+              <li>นักเรียนในโรงเรียนและต่างโรงเรียน</li>
+              <li>ครูและบุคลากรทางการศึกษา</li>
+              <li>ผู้ปกครอง</li>
+              <li>ผู้ที่สนใจเกม Esports และเทคโนโลยี</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="activities">
+      <div class="container">
+        <h2 class="section-title">กิจกรรม <span>เด่น</span></h2>
+        <p class="section-subtitle">
+          ไม่ได้มีแค่แข่งเกมแล้วกลับบ้าน เพราะมนุษย์ต้องการกิจกรรมมากกว่านั้นอย่างน่าประหลาด
+          งานนี้จึงรวมหลายโซนไว้ให้เดินเล่นและลองของใหม่ด้วย
+        </p>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-number">ACTIVITY 01</div>
+            <h3>แข่งขันเกมชิงแชมป์</h3>
+            <p>เวทีหลักสำหรับทีมที่พร้อมวัดฝีมือ แข่งขันเพื่อคะแนน เกียรติยศ และความมันแบบเต็มพิกัด</p>
+          </article>
+
+          <article class="card">
+            <div class="card-number">ACTIVITY 02</div>
+            <h3>โซนทดลองเล่นเกม</h3>
+            <p>พื้นที่สำหรับลองเกม เล่นกับเพื่อน และสนุกกับกิจกรรมแบบไม่ต้องลงแข่งขันจริง</p>
+          </article>
+
+          <article class="card">
+            <div class="card-number">ACTIVITY 03</div>
+            <h3>โชว์ผลงานชมรมเกม</h3>
+            <p>พบกับผลงาน โปรเจกต์ และกิจกรรมจากชมรมเกมของนักเรียนภายในโรงเรียน</p>
+          </article>
+
+          <article class="card">
+            <div class="card-number">ACTIVITY 04</div>
+            <h3>นิทรรศการเทคโนโลยี</h3>
+            <p>สำรวจอุปกรณ์ นวัตกรรม และเทคโนโลยีที่เกี่ยวข้องกับเกม Esports และโลกดิจิทัล</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section games" id="games">
+      <div class="container">
+        <h2 class="section-title">เกมที่ใช้ <span>แข่งขัน</span></h2>
+        <p class="section-subtitle">
+          รายชื่อด้านล่างเป็นตัวอย่าง สามารถแก้ชื่อเกมให้ตรงกับการแข่งขันจริงได้ในไฟล์ HTML
+        </p>
+
+        <div class="game-grid">
+          <article class="game-card">
+            <span class="game-label">TEAM BATTLE</span>
+            <h3>ROV</h3>
+            <p>การแข่งขันแบบทีม วางแผน ประสานงาน และควบคุมพื้นที่เพื่อคว้าชัยชนะ</p>
+          </article>
+
+          <article class="game-card">
+            <span class="game-label">TACTICAL FPS</span>
+            <h3>VALORANT</h3>
+            <p>การแข่งขันเชิงกลยุทธ์ที่เน้นความแม่นยำ การสื่อสาร และการเล่นเป็นทีม</p>
+          </article>
+
+          <article class="game-card">
+            <span class="game-label">SPORT</span>
+            <h3>eFootball</h3>
+            <p>การแข่งขันฟุตบอลดิจิทัลสำหรับผู้เล่นที่ชอบการวางแผนและการควบคุมเกมแบบตัวต่อตัว</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="schedule">
+      <div class="container">
+        <h2 class="section-title">กำหนดการ <span>แข่งขัน</span></h2>
+        <p class="section-subtitle">
+          ตัวอย่างตารางเวลาสำหรับงานวันที่ 20 กันยายน 2026 เวลา 09:00 - 16:00 น.
+        </p>
+
+        <div class="schedule">
+          <div class="schedule-row">
+            <div class="time">09:00 - 09:30</div>
+            <div>
+              <strong>ลงทะเบียนและเปิดงาน</strong><br>
+              <small>ต้อนรับผู้เข้าร่วมและชี้แจงกติกา</small>
+            </div>
+            <span class="tag">OPENING</span>
+          </div>
+
+          <div class="schedule-row">
+            <div class="time">09:30 - 11:30</div>
+            <div>
+              <strong>รอบคัดเลือกการแข่งขัน</strong><br>
+              <small>เริ่มการแข่งขันเกมหลักตามสายการแข่งขัน</small>
+            </div>
+            <span class="tag">QUALIFIER</span>
+          </div>
+
+          <div class="schedule-row">
+            <div class="time">11:30 - 12:30</div>
+            <div>
+              <strong>พักกลางวัน + โซนกิจกรรม</strong><br>
+              <small>ทดลองเล่นเกม เยี่ยมชมบูธ และผลงานชมรม</small>
+            </div>
+            <span class="tag">BREAK</span>
+          </div>
+
+          <div class="schedule-row">
+            <div class="time">12:30 - 14:30</div>
+            <div>
+              <strong>รอบรองชนะเลิศ</strong><br>
+              <small>ทีมที่ผ่านเข้ารอบแข่งขันเพื่อชิงสิทธิ์เข้าสู่รอบสุดท้าย</small>
+            </div>
+            <span class="tag">SEMIFINAL</span>
+          </div>
+
+          <div class="schedule-row">
+            <div class="time">14:30 - 15:30</div>
+            <div>
+              <strong>รอบชิงชนะเลิศ</strong><br>
+              <small>การแข่งขันแมตช์สำคัญของวัน</small>
+            </div>
+            <span class="tag">FINAL</span>
+          </div>
+
+          <div class="schedule-row">
+            <div class="time">15:30 - 16:00</div>
+            <div>
+              <strong>ประกาศผลและปิดงาน</strong><br>
+              <small>สรุปผลการแข่งขัน มอบรางวัล และถ่ายภาพร่วมกัน</small>
+            </div>
+            <span class="tag">AWARDS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>พร้อมเข้าสู่สนามแล้วหรือยัง?</h2>
+          <p>
+            พบกับการแข่งขัน กิจกรรมเกม และเทคโนโลยีในบรรยากาศ Dark Neon
+            วันที่ 20 กันยายน 2026 ณ หอประชุมโรงเรียน
+          </p>
+          <a class="btn btn-primary" href="#activities">ดูรายละเอียดกิจกรรม</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section-title">ติดต่อ <span>เรา</span></h2>
+        <p class="section-subtitle">
+          ติดตามประกาศ ตารางการแข่งขัน และข้อมูลเพิ่มเติมผ่าน Facebook ของโรงเรียนหรือชมรม
+        </p>
+
+        <div class="contact-card">
+          <div>
+            <h3>Facebook โรงเรียน / ชมรม Esports</h3>
+            <p>เปลี่ยนข้อความและลิงก์ด้านขวาเป็น Facebook จริงของโรงเรียนได้ภายหลัง</p>
+          </div>
+          <a class="facebook" href="#" aria-label="Facebook โรงเรียนหรือชมรม">Facebook</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 School Esport Day</span>
+      <span>Designed for students • HTML + CSS • GitHub Pages Ready</span>
+    </div>
+  </footer>
+
+</body>
+</html>
